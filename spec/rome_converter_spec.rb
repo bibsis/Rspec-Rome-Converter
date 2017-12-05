@@ -1,6 +1,7 @@
-require "RomeConverterSpec"
+require_relative '../lib/rome_converter.rb'
 
-describe RomeConverter do
+RSpec.describe RomeConverterSpec do
+
   describe "#to_rome" do
       do
         expect(RomeConverter.new.to_rome(1)).to eq("I")
