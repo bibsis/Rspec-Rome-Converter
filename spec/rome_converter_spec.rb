@@ -82,7 +82,6 @@ RSpec.describe RomeConverterSpec do
         expect(RomeConverter.new.to_dec('M')).to eq(1000)
       end
     end
-  end
 
   do
     do
@@ -111,4 +110,5 @@ RSpec.describe RomeConverterSpec do
       expect(RomeConverter.new.to_dec('MMMMMMMI')).not_to eq(7001)
     end
   end
+end
 end
