@@ -1,114 +1,100 @@
-require_relative '../lib/rome_converter.rb'
+require './lib/rome_converter.rb'
 
-RSpec.describe RomeConverterSpec do
-
+describe RomeConverter do
   describe "#to_rome" do
-      do
-        expect(RomeConverter.new.to_rome(1)).to eq("I")
+      it "converts 1 to 'I'" do
+        expect(RomeConverter.new.to_rome(1)).to eql("I")
       end
 
-	  do
-        expect(RomeConverter.new.to_rome(5)).to eq("V")
+	  it "converts 2 to 'II'" do
+        expect(RomeConverter.new.to_rome(2)).to eql("II")
       end
 
-	  do
-        expect(RomeConverter.new.to_rome(10)).to eq("X")
+	  it "converts 4 to 'IV'" do
+        expect(RomeConverter.new.to_rome(4)).to eql("IV")
       end
 
-	  do
-        expect(RomeConverter.new.to_rome(50)).to eq("L")
+      it "converts 5 to 'V'" do
+        expect(RomeConverter.new.to_rome(5)).to eql("V")
       end
 
-	  do
-        expect(RomeConverter.new.to_rome(100)).to eq("C")
+  	  it "converts 9 to 'IX'" do
+        expect(RomeConverter.new.to_rome(9)).to eql("IX")
       end
 
-      do
-        expect(RomeConverter.new.to_rome(500)).to eq("D")
+      it "converts 10 to 'X'" do
+        expect(RomeConverter.new.to_rome(10)).to eql("X")
       end
 
-      do
-        expect(RomeConverter.new.to_rome(1000)).to eq("M")
-      end
-    end
-
-   do
-      do
-        expect(RomeConverter.new.to_rome(2)).to eq("II")
+	  it "converts 40 to 'XL'" do
+        expect(RomeConverter.new.to_rome(40)).to eql("XL")
       end
 
-      do
-        expect(RomeConverter.new.to_rome(4)).to eq("IV")
+	  it "converts 50 to 'L'" do
+        expect(RomeConverter.new.to_rome(50)).to eql("L")
       end
 
-      do
-        expect(RomeConverter.new.to_rome(9)).to eq("IX")
+	  it "converts 100 to 'C'" do
+        expect(RomeConverter.new.to_rome(100)).to eql("C")
       end
 
-      do
-        expect(RomeConverter.new.to_rome(40)).to eq("XL")
+	  it "converts 500 to 'D'" do
+        expect(RomeConverter.new.to_rome(500)).to eql("D")
       end
-    end
 
-    do
-      do
-        expect(RomeConverter.new.to_rome(0)).not_to eq(" ")
+	  it "converts 1000 to 'M'" do
+        expect(RomeConverter.new.to_rome(1000)).to eql("M")
       end
-	  
-	  do
+	
+      it "fail converts 13 to 'XIIV'" do
+        expect(RomeConverter.new.to_rome(13)).not_to eq("XIIV")
+      end
+
+      it "fail converts 5050 to 'MMMMML'" do
         expect(RomeConverter.new.to_rome(5050)).not_to eq("MMMMML")
       end
 
-      do
+      it "fail converts 7001 to 'MMMMMMMI'" do
         expect(RomeConverter.new.to_rome(7001)).not_to eq("MMMMMMMI")
       end
-    end
   end
 
   describe "#to_dec" do
-      do
-        expect(RomeConverter.new.to_dec('I')).to eq(1)
+      it "converts 'I' to 1" do
+        expect(RomeConverter.new.to_dec('I')).to eql(1)
       end
 
-      do
-        expect(RomeConverter.new.to_dec('L')).to eq(50)
+	  it "converts 'L' to 50" do
+        expect(RomeConverter.new.to_dec('L')).to eql(50)
       end
 
-      do
-        expect(RomeConverter.new.to_dec('C')).to eq(100)
+      it "converts 'C' to 100" do
+        expect(RomeConverter.new.to_dec('C')).to eql(100)
       end
 
-	  do
-        expect(RomeConverter.new.to_dec('M')).to eq(1000)
+      it "converts 'III' to 3" do
+		expect(RomeConverter.new.to_dec('III')).to eql(3)
       end
-    end
+		
+	  it "converts 'XIX' to 19" do
+		expect(RomeConverter.new.to_dec('XIX')).to eql(19)
+      end
 
-  do
-    do
-      expect(RomeConverter.new.to_dec('XIV')).to eq(14)
-    end
+	  it "converts 'LII' to 52" do
+		expect(RomeConverter.new.to_dec('LII')).to eql(52)
+      end
 
-    do
-      expect(RomeConverter.new.to_dec('XIIII')).not_to eq(14)
-    end
+      it "fail converts 'XIIII' to 14" do
+		expect(RomeConverter.new.to_dec('XIIII')).not_to eq(14)
+      end
 
-    do
-      expect(RomeConverter.new.to_dec('XXIIIV')).not_to eq(18)
-    end
-  end
+	  it "fail converts 'XVIII' to 18" do
+		expect(RomeConverter.new.to_dec('XVIII')).not_to eq(18)
+      end
+	
+	  it "fail converts ' ' to 0" do
+		expect(RomeConverter.new.to_dec(' ')).not_to eq(0)
+      end
 
-  do
-    do
-      expect(RomeConverter.new.to_dec('')).not_to eq(0)
-    end
-
-    do
-      expect(RomeConverter.new.to_dec('MMMMMC')).not_to eq(5050)
-    end
-
-	do
-      expect(RomeConverter.new.to_dec('MMMMMMMI')).not_to eq(7001)
-    end
-  end
 end
 end
